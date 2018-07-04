@@ -40,11 +40,12 @@ install:
   # Install requirements
   - pip install -r requirements_devel.txt
   - npm install
+  - npm update
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi
 
   # Setup application
-  - if [[ "$DB" = "sqlite" ]]; then invoke create_settings; fi
-  - if [[ "$DB" = "postgresql" ]]; then invoke create_settings --database-type postgresql; fi
+  - if [[ "$DB" = "sqlite" ]]; then invoke create-settings; fi
+  - if [[ "$DB" = "postgresql" ]]; then invoke create-settings --database-type postgresql; fi
 
 # Create test databases
 before_script:
@@ -56,12 +57,12 @@ script:
   # Formatting
   - pep8 wger
 
-  # Javascript linting
-  - gulp lint
-
   # Regular application
   - coverage run --source='.' ./manage.py test
 
-
   # Code coverage
   - coverage report
+
+# Shows notifications on Slack
+notifications:
+  slack: andela:v0FI5eBbo1zvyIPDVVCsAc4u
