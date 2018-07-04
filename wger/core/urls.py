@@ -62,7 +62,8 @@ patterns_user = [
         name='overview'),
     url(r'^list', user.UserListView.as_view(), name='list'),
 
-    # Password reset is implemented by Django, no need to cook our own soup here
+    # Password reset is implemented by Django,
+    # no need to cook our own soup here
     # (besides the templates)
     url(r'^password/change$',
         views.password_change, {
@@ -82,7 +83,7 @@ patterns_user = [
         views.password_reset_done,
         {'template_name': 'user/password_reset_done.html'},
         name='password_reset_done'),
-    url(r'^password/reset/check/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+    url(r'^password/reset/check/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$', # noqa
         views.password_reset_confirm, {
             'template_name':
             'user/password_reset_confirm.html',
