@@ -358,7 +358,7 @@ if hasattr(args, 'number_logs'):
                         for reps in (8, 10, 12):
                             for i in range(1, args.number_logs):
                                 date = datetime.date.today() - \
-                                       datetime.timedelta(weeks=i)
+                                    datetime.timedelta(weeks=i)
                                 log = WorkoutLog(
                                     user=user,
                                     exercise=setting.exercise,

@@ -156,7 +156,8 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
 
     def test_ingredient_detail_editor(self):
         '''
-        Tests the ingredient details page as a logged in user with editor rights
+        Tests the ingredient details page as a
+        logged in user with editor rights
         '''
 
         self.user_login('admin')
@@ -164,7 +165,8 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
 
     def test_ingredient_detail_non_editor(self):
         '''
-        Tests the ingredient details page as a logged in user without editor rights
+        Tests the ingredient details page as a
+        logged in user without editor rights
         '''
 
         self.user_login('test')
@@ -199,7 +201,8 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         self.assertEqual(result['suggestions'][1]['value'],
                          'Test ingredient 1')
 
-        # Search for an ingredient pending review (0 hits, "Pending ingredient")
+        # Search for an ingredient pending review
+        # (0 hits, "Pending ingredient")
         response = self.client.get(
             reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
         self.assertEqual(response.status_code, 200)

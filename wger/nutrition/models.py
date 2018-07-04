@@ -20,7 +20,8 @@ from decimal import Decimal
 from django.db import models
 
 from django.template.loader import render_to_string
-from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
+# django.utils.text.slugify in django 1.5!
+from django.template.defaultfilters import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
@@ -154,7 +155,8 @@ class NutritionPlan(models.Model):
         if energy:
             for key in result['percent'].keys():
                 result['percent'][key] = \
-                    result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
+                    result['total'][key] * \
+                    ENERGY_FACTOR[key][unit] / energy * 100
 
         # Per body weight
         weight_entry = self.get_closest_weight_entry()
@@ -368,8 +370,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         - 1g of carbohydrates: 4kcal
         - 1g of fat: 9kcal
 
-        The sum is then compared to the given total energy, with ENERGY_APPROXIMATION
-        percent tolerance.
+        The sum is then compared to the given total energy,
+        with ENERGY_APPROXIMATION percent tolerance.
         '''
 
         # Note: calculations in 100 grams, to save us the '/100' everywhere
@@ -379,7 +381,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         energy_carbohydrates = 0
         if self.carbohydrates:
-            energy_carbohydrates = self.carbohydrates * ENERGY_FACTOR['carbohydrates']['kg']
+            energy_carbohydrates = self.carbohydrates * \
+                ENERGY_FACTOR['carbohydrates']['kg']
 
         energy_fat = 0
         if self.fat:
@@ -686,18 +689,18 @@ class MealItem(models.Model):
             'energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info[
             'protein'] += self.ingredient.protein * item_weight / 100
-        nutritional_info[
-            'carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
+        nutritional_info['carbohydrates'] +=\
+            self.ingredient.carbohydrates * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
-            nutritional_info['carbohydrates_sugar'] += self.ingredient.carbohydrates_sugar \
-                * item_weight / 100
+            nutritional_info['carbohydrates_sugar'] +=\
+                self.ingredient.carbohydrates_sugar * item_weight / 100
 
         nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
         if self.ingredient.fat_saturated:
-            nutritional_info[
-                'fat_saturated'] += self.ingredient.fat_saturated * item_weight / 100
+            nutritional_info['fat_saturated'] +=\
+                self.ingredient.fat_saturated * item_weight / 100
 
         if self.ingredient.fibres:
             nutritional_info[

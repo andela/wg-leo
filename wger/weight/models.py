@@ -40,7 +40,8 @@ class WeightEntry(models.Model):
     The user the weight entry belongs to.
 
     NOTE: this field is neither marked as editable false nor is it excluded in
-    the form. This is done intentionally because otherwise it's *very* difficult
+    the form.
+    This is done intentionally because otherwise it's *very* difficult
     and ugly to validate the uniqueness of unique_together fields and one field
     is excluded from the form. This does not pose any security risk because the
     value from the form is ignored and the request's user always used.

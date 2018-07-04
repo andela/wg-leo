@@ -152,9 +152,8 @@ def export_pdf_log(request,
 
     # write the document and send the response to the browser
     doc.build(elements)
-    response[
-        'Content-Disposition'] = 'attachment; filename=Schedule-{0}-log.pdf'.format(
-            pk)
+    response['Content-Disposition'] =\
+        'attachment; filename=Schedule-{0}-log.pdf'.format(pk)
     response['Content-Length'] = len(response.content)
     return response
 
@@ -232,9 +231,8 @@ def export_pdf_table(request,
 
     # write the document and send the response to the browser
     doc.build(elements)
-    response[
-        'Content-Disposition'] = 'attachment; filename=Schedule-{0}-table.pdf'.format(
-            pk)
+    response['Content-Disposition'] =\
+        'attachment; filename=Schedule-{0}-table.pdf'.format(pk)
     response['Content-Length'] = len(response.content)
     return response
 
