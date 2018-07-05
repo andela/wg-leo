@@ -1,7 +1,5 @@
 .. image:: https://circleci.com/gh/andela/wg-leo/tree/develop.svg?style=svg
     :target: https://circleci.com/gh/andela/wg-leo/tree/develop
-.. image:: https://travis-ci.org/andela/wg-leo.svg?branch=develop
-    :target: https://travis-ci.org/andela/wg-leo
 
 Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
 application that manages your exercises and personal workouts, weight and diet
