@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
-import datetime
 
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
@@ -29,11 +28,8 @@ from wger.utils.pdf import styleSheet
 from wger.utils.pdf import render_footer
 
 from reportlab.lib.pagesizes import A4, cm
-from reportlab.platypus import (Paragraph, SimpleDocTemplate, Table, Spacer)
+from reportlab.platypus import (Paragraph, SimpleDocTemplate, Spacer)
 
-from reportlab.lib import colors
-
-from wger import get_version
 
 logger = logging.getLogger(__name__)
 
@@ -106,9 +102,8 @@ def workout_log(request,
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response[
-        'Content-Disposition'] = 'attachment; filename=Workout-{0}-log.pdf'.format(
-            id)
+    response['Content-Disposition'] =\
+        'attachment; filename=Workout-{0}-log.pdf'.format(id)
     response['Content-Length'] = len(response.content)
     return response
 
@@ -183,8 +178,7 @@ def workout_view(request,
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response[
-        'Content-Disposition'] = 'attachment; filename=Workout-{0}-table.pdf'.format(
-            id)
+    response['Content-Disposition'] =\
+        'attachment; filename=Workout-{0}-table.pdf'.format(id)
     response['Content-Length'] = len(response.content)
     return response

@@ -49,7 +49,8 @@ SettingFormset = modelformset_factory(
 @login_required
 def create(request, day_pk):
     '''
-    Creates a new set. This view handles both the set form and the corresponding
+    Creates a new set.
+    This view handles both the set form and the corresponding
     settings formsets
     '''
     day = get_object_or_404(Day, pk=day_pk)
@@ -73,8 +74,8 @@ def create(request, day_pk):
     # by language and status
     if request.flavour == 'mobile':
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        form.fields['exercise_list'].queryset = Exercise.objects.accepted() \
-                                                        .filter(language__in=languages)
+        form.fields['exercise_list'].queryset =\
+            Exercise.objects.accepted().filter(language__in=languages)
 
     # If the form and all formsets validate, save them
     if request.method == "POST":
@@ -93,7 +94,8 @@ def create(request, day_pk):
                 all_valid = False
 
         if form.is_valid() and all_valid:
-            # Manually take care of the order, TODO: better move this to the model
+            # Manually take care of the order,
+            # TODO: better move this to the model
             max_order = day.set_set.select_related().aggregate(
                 models.Max('order'))
             form.instance.order = (max_order['order__max'] or 0) + 1

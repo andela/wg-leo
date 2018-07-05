@@ -254,14 +254,14 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         workout2 = Workout.objects.get(pk=2)
 
         WorkoutLog.objects.all().delete()
-        l = WorkoutLog()
-        l.user = user1
-        l.date = datetime.date(2014, 1, 5)
-        l.exercise = Exercise.objects.get(pk=1)
-        l.workout = workout1
-        l.weight = 10
-        l.reps = 10
-        l.save()
+        log = WorkoutLog()
+        log.user = user1
+        log.date = datetime.date(2014, 1, 5)
+        log.exercise = Exercise.objects.get(pk=1)
+        log.workout = workout1
+        log.weight = 10
+        log.reps = 10
+        log.save()
 
         session1 = WorkoutSession()
         session1.user = user1
@@ -287,7 +287,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session3.date = datetime.date(2014, 1, 5)
         session3.save()
 
-        self.assertEqual(l.get_workout_session(), session1)
+        self.assertEqual(log.get_workout_session(), session1)
 
 
 class WeightLogDeleteTestCase(WorkoutManagerDeleteTestCase):
@@ -389,7 +389,8 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
     def test_calendar_day(self):
         '''
-        Test the log cache on the calendar day view is correctly generated on visit
+        Test the log cache on the calendar day view is correctly
+        generated on visit
         '''
         log_hash = hash((1, 2012, 10, 1))
         self.user_login('admin')

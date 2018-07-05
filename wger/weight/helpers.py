@@ -100,8 +100,8 @@ def group_log_entries(user, year, month, day=None):
     else:
         log_hash = hash((user.pk, year, month))
 
-    # There can be workout sessions without any associated log entries, so it is
-    # not enough so simply iterate through the logs
+    # There can be workout sessions without any associated log entries,
+    # so it is not enough so simply iterate through the logs
     if day:
         filter_date = datetime.date(year, month, day)
         logs = WorkoutLog.objects.filter(user=user, date=filter_date)

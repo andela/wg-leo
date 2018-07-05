@@ -20,7 +20,8 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core import mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.cache import cache
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import (PermissionRequiredMixin,
+                                        LoginRequiredMixin)
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy, ugettext as _
@@ -52,7 +53,8 @@ class IngredientListView(ListView):
         '''
         Filter the ingredients the user will see by its language
 
-        (the user can also want to see ingredients in English, in addition to his
+        (the user can also want to see ingredients in English,
+        in addition to his
         native language, see load_ingredient_languages)
         '''
         languages = load_ingredient_languages(self.request)
@@ -194,8 +196,9 @@ class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin,
         '''
         Only show ingredients pending review
         '''
-        return Ingredient.objects.filter(status=Ingredient.INGREDIENT_STATUS_PENDING) \
-            .order_by('-creation_date')
+        return Ingredient.objects.filter(
+            status=Ingredient.INGREDIENT_STATUS_PENDING).order_by(
+                '-creation_date')
 
 
 @permission_required('nutrition.add_ingredient')

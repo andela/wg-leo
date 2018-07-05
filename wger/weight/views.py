@@ -24,7 +24,6 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.utils import formats
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.db.models import Min
@@ -143,12 +142,14 @@ def overview(request, username=None):
     max_date = WeightEntry.objects.filter(user=user).\
         aggregate(Max('date'))['date__max']
     if min_date:
-        template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
+        template_data['min_date'] = 'new '\
+            'Date(%(year)s, %(month)s, %(day)s)' % \
                                     {'year': min_date.year,
                                      'month': min_date.month,
                                      'day': min_date.day}
     if max_date:
-        template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
+        template_data['max_date'] = 'new '\
+            'Date(%(year)s, %(month)s, %(day)s)' % \
                                     {'year': max_date.year,
                                      'month': max_date.month,
                                      'day': max_date.day}

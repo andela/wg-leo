@@ -121,7 +121,8 @@ def render_workout_day(day,
             if images:
                 if exercise['obj'].main_image:
 
-                    # Make the images somewhat larger when printing only the workout and not
+                    # Make the images somewhat larger when
+                    # printing only the workout and not
                     # also the columns for weight logs
                     if only_table:
                         image_size = 2
@@ -129,7 +130,8 @@ def render_workout_day(day,
                         image_size = 1.5
 
                     image = Image(exercise['obj'].main_image.image)
-                    image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
+                    image.drawHeight =\
+                        image_size * cm * image.drawHeight / image.drawWidth
                     image.drawWidth = image_size * cm
 
             # Put the name and images and comments together
@@ -180,8 +182,8 @@ def render_workout_day(day,
         table_style.append(('SPAN', (0, start_marker), (0, end_marker)))
 
     # Set an alternating background colour for rows with exercises.
-    # The rows with exercises range from exercise_start till the end of the data
-    # list
+    # The rows with exercises range
+    # from exercise_start till the end of the data list
     for i in range(exercise_start, len(data) + 1):
         if not i % 2:
             table_style.append(('BACKGROUND', (1, i - 1), (-1, i - 1),
@@ -208,7 +210,8 @@ def reps_smart_text(settings, set_obj):
 
     This is a human representation of the settings, in a way that humans
     would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10".
-    This helper also takes care to process, hide or show the different repetition
+    This helper also takes care to process,
+    hide or show the different repetition
     and weight units as appropriate, e.g. "8 x 2 Plates", "10, 20, 30, ∞"
 
     :param settings:
@@ -312,13 +315,14 @@ def reps_smart_text(settings, set_obj):
         reps_list = tmp_reps
         weight_list = tmp_weight
 
-    return setting_text, setting_list, weight_list, reps_list, repetition_units, weight_units
+    return (setting_text, setting_list, weight_list,
+            reps_list, repetition_units, weight_units)
 
 
 class WorkoutCalendar(HTMLCalendar):
     '''
     A calendar renderer, see this blog entry for details:
-    * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
+    * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/  # noqa
     '''
 
     def __init__(self, workout_logs, *args, **kwargs):
@@ -344,7 +348,8 @@ class WorkoutCalendar(HTMLCalendar):
         entry = self.workout_logs.get(date_obj)
 
         # Note: due to circular imports we use can't import the workout session
-        # model to access the impression values directly, so they are hard coded
+        # model to access the impression values directly,
+        # so they are hard coded
         # here.
         if entry['session']:
             # Bad
@@ -393,5 +398,5 @@ class WorkoutCalendar(HTMLCalendar):
         '''
         Renders a day cell
         '''
-        return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(
-            cssclass, body)
+        return '<td class="{0}" style="vertical-align: middle;">{1}</td>'\
+            .format(cssclass, body)

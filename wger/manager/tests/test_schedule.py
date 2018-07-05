@@ -419,7 +419,8 @@ class ScheduleModelTestCase(WorkoutManagerTestCase):
 
     def test_get_workout_steps_test_4(self):
         '''
-        Test with 3 steps. Start is too far in the past, schedule ist not a loop
+        Test with 3 steps. Start is too far in the past,
+        schedule ist not a loop
         '''
         self.user_login('test')
         user = User.objects.get(pk=2)
@@ -558,7 +559,8 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
     def export_pdf_with_comments(self, fail=False, pdf_type="log"):
         '''
-        Helper function to test exporting a workout as a pdf, with exercise coments
+        Helper function to test exporting a
+        workout as a pdf, with exercise coments
         '''
 
         user = User.objects.get(username='test')
@@ -589,7 +591,8 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
     def export_pdf_with_images(self, fail=False, pdf_type="log"):
         '''
-        Helper function to test exporting a workout as a pdf, with exercise images
+        Helper function to test exporting a
+        workout as a pdf, with exercise images
         '''
         user = User.objects.get(username='test')
         uid, token = make_token(user)
@@ -619,7 +622,8 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
     def export_pdf_with_images_and_comments(self, fail=False, pdf_type="log"):
         '''
-        Helper function to test exporting a workout as a pdf, with images and comments
+        Helper function to test exporting a
+        workout as a pdf, with images and comments
         '''
 
         user = User.objects.get(username='test')
@@ -692,7 +696,8 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
     def test_export_pdf_log_with_images_and_comments(self, fail=False):
         '''
-        Tests exporting a workout as a pdf as the owner user with images andcomments
+        Tests exporting a workout as a pdf as
+        the owner user with images andcomments
         '''
         self.user_login('test')
         self.export_pdf_with_images_and_comments(fail=False)
@@ -745,7 +750,8 @@ class SchedulePdfExportTestCase(WorkoutManagerTestCase):
 
     def test_export_pdf_table_with_images_and_comments(self, fail=False):
         '''
-        Tests exporting a workout as a pdf as the owner user with images andcomments
+        Tests exporting a workout as a pdf as
+        the owner user with images andcomments
         '''
         self.user_login('test')
         self.export_pdf_with_images_and_comments(fail=False, pdf_type="table")
