@@ -16,7 +16,8 @@
 import logging
 
 from django.core.urlresolvers import reverse
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    PermissionRequiredMixin, LoginRequiredMixin)
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
@@ -25,7 +26,7 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic import (DetailView, ListView, CreateView, UpdateView)
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.gym.models import Contract, Gym
+from wger.gym.models import Contract
 
 logger = logging.getLogger(__name__)
 
@@ -46,8 +47,9 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin,
         '''
         Get the initial data for new contracts
 
-        Since the user's data probably didn't change between one contract and the
-        next, try to fill in as much data as possible from previous ones or the
+        Since the user's data probably didn't change between
+        one contract and the next, try to fill in as much data
+        as possible from previous ones or the
         user's profile
         '''
         out = {}
@@ -109,7 +111,7 @@ class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
             return HttpResponseForbidden()
 
         contract = self.get_object()
-        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id:
+        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id: # noqa
             return HttpResponseForbidden()
         return super(DetailView, self).dispatch(request, *args, **kwargs)
 
@@ -134,7 +136,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin,
             return HttpResponseForbidden()
 
         contract = self.get_object()
-        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id:
+        if contract.member.userprofile.gym_id != request.user.userprofile.gym_id: # noqa
             return HttpResponseForbidden()
         return super(UpdateView, self).dispatch(request, *args, **kwargs)
 

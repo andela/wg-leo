@@ -32,7 +32,9 @@ class SpacelessTestCase(WorkoutManagerTestCase):
         '''
         t = Template(
             '{% load wger_extras %}'
-            '{% spaceless_config %}<p>A text</p>   <p>more</p>{% endspaceless_config %}'
+            '{% spaceless_config %}'
+            '<p>A text</p>   <p>more</p>'
+            '{% endspaceless_config %}'
         )
         context = Context()
 

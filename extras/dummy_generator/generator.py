@@ -43,8 +43,8 @@ from wger.weight.models import WeightEntry  # noqa
 from wger.core.models import Language  # noqa
 
 # Nutrition import //_c
-from wger.nutrition.models import (Ingredient, IngredientWeightUnit,
-                                   WeightUnit, NutritionPlan, Meal,
+from wger.nutrition.models import (Ingredient,
+                                   NutritionPlan, Meal,
                                    MealItem)  # noqa
 
 parser = argparse.ArgumentParser(

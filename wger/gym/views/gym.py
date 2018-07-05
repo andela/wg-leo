@@ -17,7 +17,8 @@ import csv
 import datetime
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    PermissionRequiredMixin, LoginRequiredMixin)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import (Group, User)
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -29,7 +30,7 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic import (ListView, DeleteView, CreateView, UpdateView)
 
 from wger.gym.forms import GymUserAddForm, GymUserPermisssionForm
-from wger.gym.helpers import (get_user_last_activity, is_any_gym_admin,
+from wger.gym.helpers import (is_any_gym_admin,
                               get_permission_list)
 from wger.gym.models import (Gym, GymAdminConfig, GymUserConfig)
 from wger.config.models import GymConfig as GlobalGymConfig
@@ -197,8 +198,9 @@ def gym_new_user_info_export(request):
 
     # Send the data to the browser
     today = datetime.date.today()
-    filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-{user}.csv'.format(
-        t=today, user=new_username)
+    filename = \
+        'User-data-{t.year}-{t.month:02d}-{t.day:02d}-{user}.csv'.format(
+         t=today, user=new_username)
     response['Content-Disposition'] = 'attachment; filename={0}'.format(
         filename)
     response['Content-Length'] = len(response.content)
@@ -342,7 +344,8 @@ class GymAddUserView(WgerFormMixin, LoginRequiredMixin,
         # can edit all gyms
         if request.user.has_perm('gym.manage_gym') \
                 and not request.user.has_perm('gym.manage_gyms') \
-                and request.user.userprofile.gym_id != int(self.kwargs['gym_pk']):
+                and request.user.userprofile.gym_id != int(
+                    self.kwargs['gym_pk']):
             return HttpResponseForbidden()
 
         return super(GymAddUserView, self).dispatch(request, *args, **kwargs)
