@@ -123,6 +123,8 @@ router.register(
 router.register(
     r'exercise', exercises_api_views.ExerciseViewSet, base_name='exercise')
 router.register(
+    r'exerciseInfo', exercises_api_views.ExerciseInfoViewSet, base_name='exerciseInfo')
+router.register(
     r'equipment', exercises_api_views.EquipmentViewSet, base_name='api')
 router.register(
     r'exercisecategory',
