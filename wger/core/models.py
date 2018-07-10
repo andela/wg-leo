@@ -337,6 +337,7 @@ entries, but can be somewhat overwhelming and make the search difficult.'''),
         validators=[MinValueValidator(0),
                     MaxValueValidator(30)],
         default=0)
+    '''Number of days for email weight reminder'''
 
     can_create_users_via_api = models.BooleanField(default=False)
     '''
