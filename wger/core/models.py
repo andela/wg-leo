@@ -337,7 +337,21 @@ entries, but can be somewhat overwhelming and make the search difficult.'''),
         validators=[MinValueValidator(0),
                     MaxValueValidator(30)],
         default=0)
-    '''Number of Days for email weight reminder'''
+
+    can_create_users_via_api = models.BooleanField(default=False)
+    '''
+    Allow creation of users via API
+    '''
+
+    created_by = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        editable=False
+    )
+    '''
+    Flag to indicate who created the user
+    '''
 
     @property
     def weight(self):
