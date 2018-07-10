@@ -83,9 +83,3 @@ class Command(BaseCommand):
             self.toggle_permission(options['username'], allow=True)
         elif options['disallow']:
             self.toggle_permission(options['username'], allow=False)
-
-
-
-
-
-
