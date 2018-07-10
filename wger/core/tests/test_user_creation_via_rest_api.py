@@ -50,10 +50,6 @@ class CreateUserTestCase(APITestCase):
             "password": "test_pass"
         }
 
-    def tearDown(self):
-        # self.client.logout()
-        pass
-
     def test_create_user_via_rest_api(self):
         '''
         Test that an authorized user can create new users via an API request
