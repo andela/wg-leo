@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 
 # This file is part of wger Workout Manager.
 #
@@ -16,17 +16,21 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.auth.models import User
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
+from rest_framework.permissions import IsAuthenticated
 
 from wger.core.models import (UserProfile, Language, DaysOfWeek, License,
                               RepetitionUnit, WeightUnit)
 from wger.core.api.serializers import (
     UsernameSerializer, LanguageSerializer, DaysOfWeekSerializer,
-    LicenseSerializer, RepetitionUnitSerializer, WeightUnitSerializer)
+    LicenseSerializer, RepetitionUnitSerializer, WeightUnitSerializer,
+    CreateUserSerializer
+)
 from wger.core.api.serializers import UserprofileSerializer
-from wger.utils.permissions import UpdateOnlyPermission, WgerPermission
+from wger.utils.permissions import (
+    UpdateOnlyPermission, WgerPermission, CreateUserPermission)
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -58,6 +62,33 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         user = self.get_object().user
         return Response(UsernameSerializer(user).data)
+
+
+class CreateUserViewSet(viewsets.ModelViewSet):
+    '''
+    Api endpoint for creating users
+    '''
+
+    is_private = True
+    serializer_class = CreateUserSerializer
+    permission_classes = [IsAuthenticated, CreateUserPermission]
+
+    def get_queryset(self):
+        return User.objects.filter(
+            userprofile__created_by=self.request.user.username
+        )
+
+    def create(self, request, *args, **kwargs):
+        serializer = CreateUserSerializer(data=request.data)
+        creator = request.user.username
+        if serializer.is_valid():
+            serializer.save()
+            new_user = UserProfile.objects.get(
+                user__username=serializer.data['username'])
+            new_user.created_by = creator
+            new_user.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
