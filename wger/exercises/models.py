@@ -293,14 +293,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return self.exerciseimage_set.accepted().filter(is_main=True).first()
 
     @property
-    def get_this_image(self):
-        # obj = self.exerciseimage_set.all()
-        # if obj:
-        #     data = serializers.serialize('json', obj)
-        #     return json.loads(data)[0]["fields"]["image"]
-        return self.exerciseimage_set.all()
-
-    @property
     def description_clean(self):
         '''
         Return the exercise description with all markup removed
@@ -403,9 +395,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel,
         Set default ordering
         '''
         ordering = ['-is_main', 'id']
-
-    def __str__(self):
-        return '%s' % (self.image)
 
     def save(self, *args, **kwargs):
         '''
