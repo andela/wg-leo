@@ -82,3 +82,16 @@ class UpdateOnlyPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         return (request.user and request.user.is_authenticated()
                 and request.method in ['GET', 'HEAD', 'OPTIONS', 'PATCH'])
+
+
+class CreateUserPermission(permissions.BasePermission):
+    '''
+    Custom permission that allows only those users who have been explicitly
+    allowed to create users via API to do so
+    '''
+
+    message = 'You do not have permission to create users. ' \
+              'Please contact the admin for permission'
+
+    def has_permission(self, request, view):
+        return request.user.userprofile.can_create_users_via_api
