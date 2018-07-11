@@ -167,7 +167,7 @@ or, if you don't have one, simply by date.{% endblocktrans %}</em></p>
 </div>
 
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         {% if current_workout %}
             {% if current_workout.day_set.all %}
                 <a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup" class="btn btn-success btn-sm">
@@ -180,7 +180,7 @@ or, if you don't have one, simply by date.{% endblocktrans %}</em></p>
             </a>
         {% endif %}
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         {% if not plan %}
                 <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm  btn-success">
                     {% trans "No nutrition plans." %} {% trans "Add one now." %}
@@ -194,9 +194,14 @@ or, if you don't have one, simply by date.{% endblocktrans %}</em></p>
             -->
         </p>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
             {% trans "Add weight entry" %}
+        </a>
+    </div>
+    <div class="col-sm-3">
+        <a href="{% url 'core:user:fitbit-login' %}" class="btn btn-success btn-sm">
+            {% trans "Sync with Fitbit" %}
         </a>
     </div>
 </div>
