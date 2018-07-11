@@ -2,32 +2,27 @@
 # -*- coding: utf-8 -*-
 
 from wger.settings_global import *
-import dj_database_url
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
-ADMINS = (
-    ('Your name', 'your_email@example.com'),
-)
+ADMINS = (('Your name', 'your_email@example.com'), )
 MANAGERS = ADMINS
-
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'wger',
-        'USER': 'wger',
-        'PASSWORD': 'wger',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': './database.sqlite',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '',
     }
 }
-if os.environ.get("TRIGGER") == "True":
-    DATABASES["default"] = dj_database_url.config()
+
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = ')j2==+hf)qf&8dxv=8_6ihm!^&&8y1x+^19r+!xn0#zh%e!r!o'
+SECRET_KEY = 'i%f%7qsxfarg%gtd*+*&-mq&bnh*^d)*%x4nhpi0i&2^sr%so@'
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = ''
@@ -48,7 +43,7 @@ MEDIA_URL = '/media/'
 ALLOWED_HOSTS = '*'
 
 # This might be a good idea if you setup memcached
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Configure a real backend in production
 if DEBUG:
