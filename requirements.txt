@@ -7,7 +7,7 @@ celery==4.2.0
 certifi==2018.4.16
 chardet==3.0.4
 dj-database-url==0.5.0
-Django==1.9.13
+Django>=1.9,<1.10
 django-appconf==1.0.2
 django-bootstrap-breadcrumbs==0.9.1
 django-bower==5.2.0
@@ -39,8 +39,7 @@ packaging==17.1
 pbr==4.1.0
 Pillow==5.2.0
 postgres==2.2.1
-psycopg2==2.7.5
-psycopg2-binary==2.7.5
+psycopg2==2.7.0
 Pygments==2.2.0
 pyparsing==2.2.0
 python-dateutil==2.7.3
@@ -62,3 +61,5 @@ vine==1.1.4
 webencodings==0.5.1
 wger==1.8
 whitenoise==3.3.1
+django-heroku==0.3.1
+
