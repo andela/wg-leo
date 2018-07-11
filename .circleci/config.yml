@@ -33,7 +33,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            invoke create-settings --settings-path ./wger/settings.py --database-path ./wger/database.sqlite
+            invoke create_settings --settings-path ./wger/settings.py --database-path ./wger/database.sqlite
 
       - save_cache:
           paths:
