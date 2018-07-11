@@ -28,7 +28,8 @@ from django.utils.translation import ugettext as _
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
     MuscleSerializer, ExerciseSerializer, ExerciseImageSerializer,
-    ExerciseCategorySerializer, EquipmentSerializer, ExerciseCommentSerializer)
+    ExerciseCategorySerializer, EquipmentSerializer, ExerciseCommentSerializer,
+    ExerciseInfoSerializer)
 from wger.exercises.models import (Exercise, Equipment, ExerciseCategory,
                                    ExerciseImage, ExerciseComment, Muscle)
 from wger.utils.language import load_item_languages, load_language
@@ -102,6 +103,15 @@ def search(request):
         json_response['suggestions'] = results
 
     return Response(json_response)
+
+
+class ExerciseInfoViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    API endpoint for exercise info
+    '''
+    queryset = Exercise.objects.all()
+    serializer_class = ExerciseInfoSerializer
+    ordering_fields = '__all__'
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
