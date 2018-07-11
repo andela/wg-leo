@@ -368,6 +368,10 @@ def add_fitbit_support(request, code=None):
                         log/date/{date}.json'.format(date=today),
                         headers=headers
                     )
+                    response_activity = requests.get(
+                        'https://api.fitbit.com/1/user/' + user_id + '/\
+                        activities/date/{date}.json'.format(date=today),
+                        headers=headers)
                     # add weight and activity to db
                     try:
                         entry = WeightEntry()
