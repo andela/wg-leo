@@ -47,3 +47,4 @@ sphinxcontrib-websupport==1.1.0
 urllib3==1.23
 webencodings==0.5.1
 whitenoise==3.3.1
+django-heroku==0.3.1
