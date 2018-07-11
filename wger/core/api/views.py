@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
+from rest_framework.permissions import IsAuthenticated
 
 from wger.core.models import (UserProfile, Language, DaysOfWeek, License,
                               RepetitionUnit, WeightUnit)
@@ -70,7 +71,7 @@ class CreateUserViewSet(viewsets.ModelViewSet):
 
     is_private = True
     serializer_class = CreateUserSerializer
-    permission_classes = [CreateUserPermission]
+    permission_classes = [IsAuthenticated, CreateUserPermission]
 
     def get_queryset(self):
         return User.objects.filter(
