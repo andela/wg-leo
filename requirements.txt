@@ -33,8 +33,10 @@ invoke==0.14.0
 Jinja2==2.10
 kombu==4.2.1
 MarkupSafe==1.0
+mock==2.0.0
 oauthlib==2.1.0
 packaging==17.1
+pbr==4.1.0
 Pillow==5.2.0
 postgres==2.2.1
 psycopg2==2.7.5
@@ -47,6 +49,7 @@ pytz==2018.5
 rcssmin==1.0.6
 reportlab==3.3.0
 requests==2.19.1
+requests-mock==1.5.0
 requests-oauthlib==0.8.0
 rjsmin==1.0.12
 simplejson==3.16.0
