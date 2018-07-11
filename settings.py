@@ -3,6 +3,7 @@
 
 from wger.settings_global import *
 import django_heroku
+import dj_database_url
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
@@ -21,6 +22,9 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+if os.environ.get("TRIGGER") == 'TRUE':
+    DATABASES['default'] = dj_database_url.config()
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'i%f%7qsxfarg%gtd*+*&-mq&bnh*^d)*%x4nhpi0i&2^sr%so@'
