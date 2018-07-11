@@ -13,7 +13,7 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-
+#set postgres database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
