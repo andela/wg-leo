@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 from wger.settings_global import *
 import dj_database_url
 
@@ -13,7 +14,7 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-
+#set postgres database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
