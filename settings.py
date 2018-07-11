@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from wger.settings_global import *
+import django_heroku
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
@@ -12,10 +13,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': './database.sqlite',
-        'USER': '',
-        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'wger',
+        'USER': 'wger',
+        'PASSWORD': 'wger',
         'HOST': '',
         'PORT': '',
     }
@@ -54,3 +55,4 @@ WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 
 # Your twitter handle, if you have one for this instance.
 # WGER_SETTINGS['TWITTER'] = ''
+django_heroku.settings(locals())
