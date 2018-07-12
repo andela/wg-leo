@@ -357,90 +357,87 @@ def add_fitbit_support(request, code=None):
                     )
                     template_data['fitbit_auth_link'] = fitbit_client.\
                         authorize_token_url(
-                        redirect_uri='http://wgerl-staging.herokuapp.com/en/user/fitbit/'
-                        'login', prompt='consent')[0]
+                        redirect_uri='http://wgerl-staging.herokuapp.com/en/user/fitbit/login', prompt='consent')[0]
                     return render(request, 'user/fitbit.html', template_data)
-                else:
-                    today = date.today()
-                    weight = response_weight.json()['user']['weight']
-                    response_nutrition = requests.get(
-                        'https://api.fitbit.com/1/user/' + user_id + '/foods/\
-                        log/date/{date}.json'.format(date=today),
-                        headers=headers
-                    )
-                    response_activity = requests.get(
-                        'https://api.fitbit.com/1/user/' + user_id + '/\
-                        activities/date/{date}.json'.format(date=today),
-                        headers=headers)
-                    # add weight and activity to db
-                    try:
-                        entry = WeightEntry()
-                        entry.weight = weight
-                        entry.user = request.user
-                        entry.date = datetime.date.today()
-                        entry.save()
-                        messages.success(request, _(
-                            'Successfully synced weight data.'))
+            else:
+                today = date.today()
+                weight = response_weight.json()['user']['weight']
+                response_nutrition = requests.get(
+                    'https://api.fitbit.com/1/user/' + user_id + '/foods/log/date/{date}.json'.format(date=today),
+                    headers=headers
+                )
+                response_activity = requests.get(
+                    'https://api.fitbit.com/1/user/' + user_id + '/activities/date/{date}.json'.format(date=today),
+                    headers=headers)
+                # add weight and activity to db
+                try:
+                    entry = WeightEntry()
+                    entry.weight = weight
+                    entry.user = request.user
+                    entry.date = datetime.date.today()
+                    entry.save()
+                    messages.success(request, _(
+                        'Successfully synced weight data.'))
 
-                        if not ExerciseCategory.objects.filter(name='Fitbit'):
-                            fitbit_category = ExerciseCategory()
-                            fitbit_category.name = 'Fitbit'
-                            fitbit_category.save()
+                    if not ExerciseCategory.objects.filter(name='Fitbit'):
+                        fitbit_category = ExerciseCategory()
+                        fitbit_category.name = 'Fitbit'
+                        fitbit_category.save()
 
-                        for detail in response_activity.json()['activities']:
-                            name = detail['name']
-                            description = detail['description']
+                    for detail in response_activity.json()['activities']:
+                        name = detail['name']
+                        description = detail['description']
 
-                            exercise = Exercise()
-                            exercise.name_original = name
-                            exercise.name = name
-                            exercise.category = ExerciseCategory.objects.get(
-                                name='Fitbit')
-                            exercise.description = description
-                            exercise.language = Language.objects.get(
-                                short_name='en')
-                            exercise.save()
-                    except IntegrityError as error:
-                        if error:
-                            messages.info(
-                                request, _('Already synced up for today.'))
-                        return render(
-                            request, 'user/fitbit.html', template_data)
-                    try:
-                        for food in response_nutrition.json()['foods']:
-                            name = food.get('loggedFood').get('name')
-                            nutritionalValues = food.get('nutritionalValues')
-
-                            if nutritionalValues:
-                                energy = nutritionalValues.get('calories', 0)
-                                protein = nutritionalValues.get('protein', 0)
-                                carbohydrates = nutritionalValues.get(
-                                    'carbs', 0)
-                                fat = nutritionalValues.get('fat', 0)
-                                fibres = nutritionalValues.get('fiber', 0)
-                                sodium = nutritionalValues.get('sodium', 0)
-
-                            ingredient = Ingredient()
-                            if not Ingredient.objects.filter(name=name)\
-                                    .exists():
-                                ingredient.user = request.user
-                                ingredient.language = Language.objects.get(
-                                    short_name='en')
-                                ingredient.name = name
-                                ingredient.energy = energy
-                                ingredient.protein = protein
-                                ingredient.carbohydrates = carbohydrates
-                                ingredient.fat = fat
-                                ingredient.fibres = fibres
-                                ingredient.sodium = sodium
-                                ingredient.save()
-                    except IntegrityError as error:
+                        exercise = Exercise()
+                        exercise.name_original = name
+                        exercise.name = name
+                        exercise.category = ExerciseCategory.objects.get(
+                            name='Fitbit')
+                        exercise.description = description
+                        exercise.language = Language.objects.get(
+                            short_name='en')
+                        exercise.save()
+                except IntegrityError as error:
+                    if error:
                         messages.info(
                             request, _('Already synced up for today.'))
+                    return render(
+                        request, 'user/fitbit.html', template_data)
+                try:
+                    for food in response_nutrition.json()['foods']:
+                        name = food.get('loggedFood').get('name')
+                        nutritionalValues = food.get('nutritionalValues')
 
-                    return HttpResponseRedirect(reverse(
-                        'weight:overview', kwargs={
-                            'username': request.user.username}))
+                        if nutritionalValues:
+                            energy = nutritionalValues.get('calories', 0)
+                            protein = nutritionalValues.get('protein', 0)
+                            carbohydrates = nutritionalValues.get(
+                                'carbs', 0)
+                            fat = nutritionalValues.get('fat', 0)
+                            fibres = nutritionalValues.get('fiber', 0)
+                            sodium = nutritionalValues.get('sodium', 0)
+
+                        ingredient = Ingredient()
+                        if not Ingredient.objects.filter(name=name)\
+                                .exists():
+                            ingredient.user = request.user
+                            ingredient.language = Language.objects.get(
+                                short_name='en')
+                            ingredient.name = name
+                            ingredient.energy = energy
+                            ingredient.protein = protein
+                            ingredient.carbohydrates = carbohydrates
+                            ingredient.fat = fat
+                            ingredient.fibres = fibres
+                            ingredient.sodium = sodium
+                            ingredient.save()
+                except IntegrityError as error:
+                    messages.info(
+                        request, _('Already synced up for today.'))
+
+                return HttpResponseRedirect(reverse(
+                    'weight:overview', kwargs={
+                        'username': request.user.username}))
         else:
             messages.warning(request, _('Something went wrong. Try again'))
             return render(request, 'user/fitbit.html', template_data)
