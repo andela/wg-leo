@@ -86,8 +86,9 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         '''
         out = {'admins': [], 'members': []}
 
-        for u in Gym.objects.get_members(
-                self.kwargs['pk']).select_related('usercache'):
+        target_members = Gym.objects.get_members(self.kwargs['pk'], self.kwargs['status'])
+
+        for u in target_members.select_related('usercache'):
             out['members'].append({
                 'obj': u,
                 'last_log': u.usercache.last_activity
@@ -110,10 +111,12 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         '''
         Pass other info to the template
         '''
+        users_status = self.kwargs['status'] or 'active'
         context = super(GymUserListView, self).get_context_data(**kwargs)
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
         context['user_count'] = len(context['object_list']['members'])
+        context['user_status'] = users_status
         context['user_table'] = {
             'keys': [_('ID'),
                      _('Username'),
