@@ -358,7 +358,6 @@ def add_fitbit_support(request, code=None):
                     )
                     template_data['fitbit_auth_link'] = fitbit_client.\
                         authorize_token_url(
-
                         redirect_uri='http://wgerl-staging.herokuapp.com/en/user/fitbit/'
 
                         'login', prompt='consent')[0]
