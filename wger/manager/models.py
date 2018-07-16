@@ -903,7 +903,6 @@ class WorkoutLog(models.Model):
             session_id = self.session_id
             return WorkoutSession.objects.filter(
                 user=self.user).get(date=date, id=session_id.id)
-            # return WorkoutSession.objects.filter(user=self.user).get(date=date)
         except WorkoutSession.DoesNotExist:
             return None
 
