@@ -37,9 +37,9 @@ let chartOptions = {
   legend: {
     display: true,
     spanGaps: true,
-    position: 'top',
+    position: 'right',
     labels: {
-      boxWidth: 80,
+      boxWidth: 15,
       fontColor: 'black'
     }
   },
@@ -51,7 +51,7 @@ let chartOptions = {
       scaleLabel: {
         display: true,
         labelString: 'Weight in Kg',
-      }
+      },
     }],
     xAxes: [{
       scaleLabel: {
