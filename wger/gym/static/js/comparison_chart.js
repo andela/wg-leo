@@ -1,5 +1,4 @@
 let user_plot_data = JSON.parse(user_data.replace(/&quot;/g,'"'));
-console.log(user_plot_data);
 let user_weights = user_plot_data[0];
 let dates = user_plot_data[1];
 let plot_data = [];
@@ -69,14 +68,5 @@ window.onload = function () {
   type: 'line',
   data: chartData,
   options: chartOptions
-});
+  });
 };
-
-
-
-
-
-
-
-
-
