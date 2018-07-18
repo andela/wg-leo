@@ -329,6 +329,7 @@ def add_fitbit_support(request, code=None):
             'client_id': client_id,
             'grant_type': 'authorization_code',
             'redirect_uri': 'http://wgerl-staging.herokuapp.com/en/user/fitbit/login'
+
         }
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -357,6 +358,7 @@ def add_fitbit_support(request, code=None):
                     )
                     template_data['fitbit_auth_link'] = fitbit_client.\
                         authorize_token_url(
+
                         redirect_uri='http://wgerl-staging.herokuapp.com/en/user/fitbit/login', prompt='consent')[0]
                     return render(request, 'user/fitbit.html', template_data)
             else:
@@ -445,6 +447,7 @@ def add_fitbit_support(request, code=None):
     # link to page that makes user authorize wger to access their fitbit
     template_data['fitbit_auth_link'] = fitbit_client.authorize_token_url(
         redirect_uri='http://wgerl-staging.herokuapp.com/en/user/fitbit/login',
+
         prompt='consent'
     )[0]
     return render(request, 'user/fitbit.html', template_data)
