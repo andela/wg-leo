@@ -16,6 +16,7 @@
 import csv
 import datetime
 import logging
+import json
 
 from django.contrib.auth.mixins import (
     PermissionRequiredMixin, LoginRequiredMixin)
@@ -33,6 +34,7 @@ from wger.gym.forms import GymUserAddForm, GymUserPermisssionForm
 from wger.gym.helpers import (is_any_gym_admin,
                               get_permission_list)
 from wger.gym.models import (Gym, GymAdminConfig, GymUserConfig)
+from wger.weight.models import WeightEntry
 from wger.config.models import GymConfig as GlobalGymConfig
 from wger.utils.generic_views import (WgerFormMixin, WgerDeleteMixin,
                                       WgerMultiplePermissionRequiredMixin)
@@ -107,6 +109,22 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
             })
         return out
 
+    def get_comparison_data(self, pk):
+        target_members = Gym.objects.get_members(pk, 'active')
+        entries = WeightEntry.objects.filter(user__in=target_members).all()
+        # get a unique list of dates
+        dates = list(set([entry.date for entry in entries]))
+        dates.sort()
+        y_data = {}
+        for entry in entries:
+            if entry.user.username not in y_data:
+                y_data[entry.user.username] = [None] * len(dates)
+                y_data[entry.user.username][dates.index(entry.date)] = int(entry.weight)
+            else:
+                y_data[entry.user.username][dates.index(entry.date)] = int(entry.weight)
+        x_data = [date.strftime('%b %d %Y') for date in dates]
+        return json.dumps([y_data, x_data])
+
     def get_context_data(self, **kwargs):
         '''
         Pass other info to the template
@@ -114,6 +132,8 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         users_status = self.kwargs['status'] or 'active'
         context = super(GymUserListView, self).get_context_data(**kwargs)
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
+        context['user_plot_data'] = self.get_comparison_data(
+            pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
         context['user_count'] = len(context['object_list']['members'])
         context['user_status'] = users_status
