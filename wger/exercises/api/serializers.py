@@ -14,29 +14,44 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from django.utils.encoding import force_text
 from rest_framework import serializers
-from wger.exercises.models import (
-    Muscle,
-    Exercise,
-    ExerciseImage,
-    ExerciseCategory,
-    Equipment,
-    ExerciseComment
-)
+from wger.exercises.models import (Muscle, Exercise, ExerciseImage,
+                                   ExerciseCategory, Equipment,
+                                   ExerciseComment)
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
     '''
     Exercise serializer
     '''
+
     class Meta:
         model = Exercise
+
+
+class ExerciseInfoSerializer(serializers.ModelSerializer):
+    '''
+    Exercise Info serializer
+    '''
+    image = serializers.StringRelatedField(source='main_image', read_only=True)
+
+    class Meta:
+        model = Exercise
+        fields = ('category', 'creation_date', 'description', 'language',
+                  'muscles', 'muscles_secondary', 'status', 'name',
+                  'equipment', 'license', 'license_author', 'image')
+        depth = 1
+
+    def get_image(self, obj):
+        return force_text(obj.main_image)
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
     '''
     Equipment serializer
     '''
+
     class Meta:
         model = Equipment
 
@@ -45,6 +60,7 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
     '''
     ExerciseCategory serializer
     '''
+
     class Meta:
         model = ExerciseCategory
 
@@ -53,6 +69,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     '''
     ExerciseImage serializer
     '''
+
     class Meta:
         model = ExerciseImage
 
@@ -61,6 +78,7 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
     '''
     ExerciseComment serializer
     '''
+
     class Meta:
         model = ExerciseComment
 
@@ -69,5 +87,6 @@ class MuscleSerializer(serializers.ModelSerializer):
     '''
     Muscle serializer
     '''
+
     class Meta:
         model = Muscle
