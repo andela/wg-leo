@@ -146,7 +146,7 @@ class DayCreateView(DayView, CreateView):
             DayCreateView.title = _('Add workout week')
             context['form'].fields['day'].label = 'Week'
             context['form'].fields['description'].help_text = \
-                _('A description of what is done on this day (e.g. "Pull day") '
+                _('A description of what is done during this period (e.g. "Pull day") '
                   + ' what body parts are trained (e.g. "Arms and abs")')
             context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(workout_period='week').exclude(
                 day_of_week__in=already_selected)
@@ -154,7 +154,7 @@ class DayCreateView(DayView, CreateView):
             DayCreateView.title = _('Add workout month')
             context['form'].fields['day'].label = 'Month'
             context['form'].fields['description'].help_text = \
-                _('A description of what is done on this Month (e.g. "Pull day") '
+                _('A description of what is done during this period (e.g. "Pull day") '
                   + ' what body parts are trained (e.g. "Arms and abs")')
             context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(workout_period='month').exclude(
                 day_of_week__in=already_selected)
