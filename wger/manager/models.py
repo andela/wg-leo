@@ -58,6 +58,12 @@ class Workout(models.Model):
             "-creation_date",
         ]
 
+    CYCLE_OPTIONS = [
+        ('Microcycle', 'Microcycle - 1 week plan'),
+        ('Mesocycle', 'Mesocycle - 2 to 6 week plan'),
+        ('Macrocycle', 'Macrocycle - 1 year plan')
+    ]
+
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
     comment = models.CharField(
         verbose_name=_('Description'),
@@ -66,6 +72,12 @@ class Workout(models.Model):
         help_text=_("A short description or goal of the workout. For "
                     "example 'Focus on back' or 'Week 1 of program xy'."))
     user = models.ForeignKey(User, verbose_name=_('User'))
+    cycle = models.CharField(
+        verbose_name=_('Periodization cycle'),
+        max_length=10,
+        choices=CYCLE_OPTIONS,
+        null=True
+    )
 
     def get_absolute_url(self):
         '''
