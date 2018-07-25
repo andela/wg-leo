@@ -127,15 +127,17 @@ fieldset[disabled] .btn-primary.active {
   background-color: white;
 }
 .btn-xl {
-  color: white;
-  background-color: #204a87;
-  border-color: #204a87;
+  color: #204a87;
+  background-color: white;
+  border-color: #dfe9f8;
   font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
   border-radius: 3px;
   font-size: 18px;
   padding: 20px 40px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .btn-xl:hover,
 .btn-xl:focus,
@@ -253,7 +255,7 @@ fieldset[disabled] .btn-xl.active {
   }
 }
 header {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('../images/main.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://cdn-ami-drupal.heartyhosting.com/sites/muscleandfitness.com/files/styles/homepage_top_1440x500/public/media/1426-lean-muscle-dumbbells.jpg?itok=P4eEQET6');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
