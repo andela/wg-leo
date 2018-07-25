@@ -135,7 +135,7 @@ class DayCreateView(DayView, CreateView):
                 for period in cycle['days_of_week']['day_list']:
                     already_selected.append(period.day_of_week)
         if workout.cycle == 'Microcycle':
-            DayCreateView.title = _('Add workout day')
+            DayCreateView.title = _('Add training day')
             context['form'].fields['day'].label = 'Day'
             context['form'].fields['description'].help_text = \
                 _('A description of what is done on this day (e.g. "Pull day") '
@@ -143,14 +143,14 @@ class DayCreateView(DayView, CreateView):
             context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(workout_period='day').exclude(
                 day_of_week__in=already_selected)
         elif workout.cycle == 'Mesocycle':
-            DayCreateView.title = _('Add workout week')
+            DayCreateView.title = _('Add training week')
             context['form'].fields['day'].label = 'Week'
             context['form'].fields['description'].help_text = \
                 _('A description of what is done during this period (e.g. "Muscle conditioning")')
             context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(workout_period='week').exclude(
                 day_of_week__in=already_selected)
         elif workout.cycle == 'Macrocycle':
-            DayCreateView.title = _('Add workout month')
+            DayCreateView.title = _('Add training month')
             context['form'].fields['day'].label = 'Month'
             context['form'].fields['description'].help_text = \
                 _('A description of what is done during this period (e.g. "endurance phase")')
