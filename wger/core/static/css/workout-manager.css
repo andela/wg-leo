@@ -292,3 +292,37 @@ div.info a, div.info a:hover, div.info a:active{
 #shoutout h2:first-child {
     margin-top: 0;
 }
+
+/**************************************************************
+ * Social Buttons
+ **************************************************************/
+.social {
+    width: 100%;
+}
+
+.social-text {
+    text-align: center;
+}
+
+.social-btn {
+    margin-right: 25px;
+    width: 30%;
+}
+.social-btn:nth-last-child(1) {
+    margin-right: 0;
+}
+
+.btn-google {
+    background: #dd4b39;
+    color: white;
+  }
+
+.btn-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.btn-twitter {
+    background: #55ACEE;
+    color: white;
+}
