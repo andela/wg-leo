@@ -59,7 +59,7 @@ $(document).ready(function() {
 {% endif %}
 
 {% if workout.cycle %}
-    <p><strong>{% trans 'Plan' %}: {{ workout.cycle }}</strong></p>
+    <p><strong>{% trans 'Plan Type' %}: {{ workout.cycle }}</strong></p>
 {% endif %}
 
 {% for day in workout.canonical_representation.day_list %}
