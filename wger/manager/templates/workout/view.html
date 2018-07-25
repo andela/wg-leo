@@ -71,7 +71,7 @@ $(document).ready(function() {
         {% if not workout.cycle %}
           <p>
                 <a href="{% url 'manager:workout:edit' workout.id %}" class="wger-modal-dialog btn btn-default btn-block">
-                    {% trans 'Set a cycle and a description for this workout' %}
+                    {% trans 'Set a cycle and a description (optional) for this workout' %}
                 </a>
            </p>
         {% else %}
