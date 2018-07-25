@@ -123,7 +123,13 @@ $(document).ready(function() {
             <td colspan="2">
                     <a href="{% url 'manager:set:add' day.obj.id %}"
                        class="wger-modal-dialog btn btn-default btn-block wger-modal-dialog">
-                       {% trans "No exercises selected for this day." %}
+                       {% if day.obj.training.cycle == 'Microcycle' %}
+                           {% trans "No exercises selected for this day." %}
+                       {% elif day.obj.training.cycle == 'Mesocycle' %}
+                           {% trans "No exercises selected for this week." %}
+                       {% elif day.obj.training.cycle == 'Macrocycle' %}
+                           {% trans "No exercises selected for this month." %}
+                       {% endif %}
                        {% trans "Add one now." %}
                     </a>
             </td>
@@ -134,7 +140,15 @@ $(document).ready(function() {
         <tr>
             <td colspan="2">
                 <a href="{% url 'manager:set:add' day.obj.id %}"
-                   class="wger-modal-dialog">{% trans "Add exercises to this workout day" %}</a>
+                   class="wger-modal-dialog">
+                    {% if day.obj.training.cycle == 'Microcycle' %}
+                        {% trans "Add exercises to this workout day" %}
+                    {% elif day.obj.training.cycle == 'Mesocycle' %}
+                           {% trans "Add exercises to this workout week." %}
+                    {% elif day.obj.training.cycle == 'Macrocycle' %}
+                           {% trans "Add exercises to this workout month." %}
+                    {% endif %}
+                </a>
             </td>
         </tr>
         {% endif %}

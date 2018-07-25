@@ -89,6 +89,22 @@ class DayEditView(DayView, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(DayEditView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
+        workout = Day.objects.get(pk=self.kwargs['pk']).training
+        if workout.cycle == 'Microcycle':
+            context['form'].fields['day'].label = 'Day'
+            context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(
+                workout_period='day'
+            )
+        elif workout.cycle == 'Mesocycle':
+            context['form'].fields['day'].label = 'Week'
+            context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(
+                workout_period='week'
+            )
+        elif workout.cycle == 'Macrocycle':
+            context['form'].fields['day'].label = 'Month'
+            context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(
+                workout_period='month'
+            )
         return context
 
 
@@ -111,6 +127,35 @@ class DayCreateView(DayView, CreateView):
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(DayCreateView, self).get_context_data(**kwargs)
+        workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
+        already_selected = []
+        cycles = workout.canonical_representation['day_list']
+        if cycles:
+            for cycle in cycles:
+                for period in cycle['days_of_week']['day_list']:
+                    already_selected.append(period.day_of_week)
+        if workout.cycle == 'Microcycle':
+            DayCreateView.title = _('Add training day')
+            context['form'].fields['day'].label = 'Day'
+            context['form'].fields['description'].help_text = \
+                _('A description of what is done on this day (e.g. "Pull day") '
+                  + ' what body parts are trained (e.g. "Arms and abs")')
+            context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(workout_period='day').exclude(
+                day_of_week__in=already_selected)
+        elif workout.cycle == 'Mesocycle':
+            DayCreateView.title = _('Add training week')
+            context['form'].fields['day'].label = 'Week'
+            context['form'].fields['description'].help_text = \
+                _('A description of what is done during this period (e.g. "Muscle conditioning")')
+            context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(workout_period='week').exclude(
+                day_of_week__in=already_selected)
+        elif workout.cycle == 'Macrocycle':
+            DayCreateView.title = _('Add training month')
+            context['form'].fields['day'].label = 'Month'
+            context['form'].fields['description'].help_text = \
+                _('A description of what is done during this period (e.g. "endurance phase")')
+            context['form'].fields['day'].queryset = DaysOfWeek.objects.filter(workout_period='month').exclude(
+                day_of_week__in=already_selected)
         context['form_action'] = reverse(
             'manager:day:add',
             kwargs={'workout_pk': self.kwargs['workout_pk']})
