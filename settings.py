@@ -22,7 +22,7 @@ DATABASES = {
     }
 }
 if os.environ.get("TRIGGER") == "True":
-   DATABASES[“default”] = dj_database_url.config()
+   DATABASES["default"] = dj_database_url.config()
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'p4=+x**ms9wgr_cm6azcgrcbw=#@g_s-n*1k^y5uc&7sr!j_5l'
