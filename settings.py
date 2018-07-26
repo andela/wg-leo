@@ -21,7 +21,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-if os.environ.get(“TRIGGER”) == “True”:
+if os.environ.get("TRIGGER") == "True":
    DATABASES[“default”] = dj_database_url.config()
 
 # Make this unique, and don't share it with anybody.
