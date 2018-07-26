@@ -58,5 +58,5 @@ if DEBUG:
 # Sender address used for sent emails
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 
-# Your twitter handle, if you have one for this instance.
+# Your twitter handle, if you have one for this instances.
 #WGER_SETTINGS['TWITTER'] = ''
